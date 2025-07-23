@@ -37,8 +37,16 @@ and ending at index end (exclusive).
 Returns an empty string on invalid range.
 */
 UStr substring(UStr s, int32_t start, int32_t end) {
-	// TODO: implement this
+    if (start < 0 || end > s.codepoints || start > end) {
+        return new_ustr("");
+    }
 
+    int byte_start = bi_of_cpi(s.contents, start);
+    int byte_end = bi_of_cpi(s.contents, end);
+
+    if (byte_start < 0 || byte_end < 0 || byte_end < byte_start) {
+        return new_ustr("");
+    }
 }
 
 /*
