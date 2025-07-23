@@ -47,6 +47,14 @@ UStr substring(UStr s, int32_t start, int32_t end) {
     if (byte_start < 0 || byte_end < 0 || byte_end < byte_start) {
         return new_ustr("");
     }
+    int len = byte_end - byte_start;
+    char* buffer = malloc(len + 1);
+    strncpy(buffer, s.contents + byte_start, len);
+    buffer[len] = '\0';
+    UStr result = new_ustr(buffer);
+    free(buffer); 
+    return result;
+
 }
 
 /*
